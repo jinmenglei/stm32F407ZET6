@@ -1,0 +1,25 @@
+--cpu=Cortex-M4.fp
+"ledflash\startup_stm32f407xx.o"
+"ledflash\main.o"
+"ledflash\stm32f4xx_it.o"
+"ledflash\stm32f4xx_hal_msp.o"
+"ledflash\stm32f4xx_hal_tim.o"
+"ledflash\stm32f4xx_hal_tim_ex.o"
+"ledflash\stm32f4xx_hal_rcc.o"
+"ledflash\stm32f4xx_hal_rcc_ex.o"
+"ledflash\stm32f4xx_hal_flash.o"
+"ledflash\stm32f4xx_hal_flash_ex.o"
+"ledflash\stm32f4xx_hal_flash_ramfunc.o"
+"ledflash\stm32f4xx_hal_gpio.o"
+"ledflash\stm32f4xx_hal_dma_ex.o"
+"ledflash\stm32f4xx_hal_dma.o"
+"ledflash\stm32f4xx_hal_pwr.o"
+"ledflash\stm32f4xx_hal_pwr_ex.o"
+"ledflash\stm32f4xx_hal_cortex.o"
+"ledflash\stm32f4xx_hal.o"
+"ledflash\stm32f4xx_hal_exti.o"
+"ledflash\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "ledflash\ledflash.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "ledflash.map" -o ledflash\ledflash.axf
