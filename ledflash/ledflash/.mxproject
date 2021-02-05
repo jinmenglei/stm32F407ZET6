@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=E:/github/STM42F407ZET6/ledflash/ledflash/Inc
+HeaderPath=E:/github/STM32F407ZET6/ledflash/ledflash/Inc
 HeaderFiles=stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;
-SourcePath=E:/github/STM42F407ZET6/ledflash/ledflash/Src
+SourcePath=E:/github/STM32F407ZET6/ledflash/ledflash/Src
 SourceFiles=stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

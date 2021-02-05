@@ -42,15 +42,20 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim14;
 
 /* USER CODE BEGIN PV */
+uint16_t indexWave[] = {1,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,
+                       400,380,360,340,320,300,280,260,240,220,200,180,160,140,120,100,80,60,40,20};
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_TIM14_Init(void);
 /* USER CODE BEGIN PFP */
+void changepwm(void);
 
 /* USER CODE END PFP */
 
@@ -88,8 +93,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,8 +105,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		HAL_Delay(1000);
+		HAL_Delay(100);
 		HAL_GPIO_TogglePin(BLUE_LED_GPIO_Port,BLUE_LED_Pin);
+		changepwm();
 		
   }
   /* USER CODE END 3 */
@@ -149,6 +156,52 @@ void SystemClock_Config(void)
 }
 
 /**
+  * @brief TIM14 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM14_Init(void)
+{
+
+  /* USER CODE BEGIN TIM14_Init 0 */
+
+  /* USER CODE END TIM14_Init 0 */
+
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM14_Init 1 */
+
+  /* USER CODE END TIM14_Init 1 */
+  htim14.Instance = TIM14;
+  htim14.Init.Prescaler = 83;
+  htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim14.Init.Period = 499;
+  htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim14, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM14_Init 2 */
+
+  /* USER CODE END TIM14_Init 2 */
+  HAL_TIM_MspPostInit(&htim14);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -158,8 +211,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
@@ -175,6 +228,26 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void changepwm(void)
+{
+  static uint8_t pwm_index = 1;			/* 用于PWM查表 */
+
+  
+	/* 根据PWM表修改定时器的比较寄存器值 */
+	//__HAL_TIM_SetCompare(&htim14,TIM_CHANNEL_1,indexWave[pwm_index]);
+	
+	htim14.Instance->CCR1 = indexWave[pwm_index];	
+	
+	/* 标志PWM表的下一个元素 */
+	pwm_index++;												
+	/* 若PWM脉冲表已经输出完成一遍，重置PWM查表标志 */
+	if( pwm_index >=  40)								
+	{
+		pwm_index=0;								
+	}
+ 								
+  
+}
 
 /* USER CODE END 4 */
 
