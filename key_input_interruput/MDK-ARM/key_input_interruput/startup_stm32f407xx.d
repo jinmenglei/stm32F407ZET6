@@ -1,0 +1,1 @@
+key_input_interruput\startup_stm32f407xx.o: startup_stm32f407xx.s

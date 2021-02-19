@@ -1,0 +1,25 @@
+--cpu=Cortex-M4.fp
+"key_input_interruput\startup_stm32f407xx.o"
+"key_input_interruput\main.o"
+"key_input_interruput\stm32f4xx_it.o"
+"key_input_interruput\stm32f4xx_hal_msp.o"
+"key_input_interruput\stm32f4xx_hal_tim.o"
+"key_input_interruput\stm32f4xx_hal_tim_ex.o"
+"key_input_interruput\stm32f4xx_hal_rcc.o"
+"key_input_interruput\stm32f4xx_hal_rcc_ex.o"
+"key_input_interruput\stm32f4xx_hal_flash.o"
+"key_input_interruput\stm32f4xx_hal_flash_ex.o"
+"key_input_interruput\stm32f4xx_hal_flash_ramfunc.o"
+"key_input_interruput\stm32f4xx_hal_gpio.o"
+"key_input_interruput\stm32f4xx_hal_dma_ex.o"
+"key_input_interruput\stm32f4xx_hal_dma.o"
+"key_input_interruput\stm32f4xx_hal_pwr.o"
+"key_input_interruput\stm32f4xx_hal_pwr_ex.o"
+"key_input_interruput\stm32f4xx_hal_cortex.o"
+"key_input_interruput\stm32f4xx_hal.o"
+"key_input_interruput\stm32f4xx_hal_exti.o"
+"key_input_interruput\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "key_input_interruput\key_input_interruput.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "key_input_interruput.map" -o key_input_interruput\key_input_interruput.axf
